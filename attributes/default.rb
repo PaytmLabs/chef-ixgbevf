@@ -1,10 +1,11 @@
 
-default['ixgbevf']['version'] = "2.16.1"
+default['ixgbevf']['version'] = "3.1.2"
 default['ixgbevf']['package'] = "ixgbevf-#{node['ixgbevf']['version']}.tar.gz"
 default['ixgbevf']['package_url'] = "http://sourceforge.net/projects/e1000/files/ixgbevf stable/#{node['ixgbevf']['version']}/#{node['ixgbevf']['package']}"
 default['ixgbevf']['dir']     = "/usr/src/ixgbevf-#{node['ixgbevf']['version']}"
 default['ixgbevf']['module_flags'] = "InterruptThrottleRate=1,1,1,1,1,1,1,1"
 default['ixgbevf']['disable_ifnames'] = false
+default['ixgbevf']['compile_time'] = true
 
 case node['platform']
   when 'ubuntu'

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "ixgbevf" do
   it "should upgrade ixgbevf kernel module" do
     output = `modinfo ixgbevf` 
-    expect(output).to match(/version: +2\.16\.1/)
+    expect(output).to match(/version: +3\.1\.2/)
   end
 
 end
