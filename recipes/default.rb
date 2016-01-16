@@ -21,21 +21,6 @@ execute 'extract_ixgbevf_source' do
   not_if { File.exists?( node['ixgbevf']['dir'] ) }
 end
 
-# Patch for Ubuntu 14.04
-cookbook_file "#{node['ixgbevf']['dir']}/src/ixgbevf_14.04.patch" do
-  source 'ixgbevf_14.04.patch'
-  mode '0644'
-  owner 'root'
-  group node['root_group']
-  only_if { node['platform'] == "ubuntu" and node['platform_version'] == "14.04" }
-end
-execute 'patch_ixgbevf_source' do
-  command "(cat ixgbevf_14.04.patch | patch -p0) && touch .patched"
-  cwd "#{node['ixgbevf']['dir']}/src"
-  only_if { node['platform'] == "ubuntu" and node['platform_version'] == "14.04" }
-  not_if { File.exists?( "#{node['ixgbevf']['dir']}/src/.patched" ) }
-end
-
 template "#{node['ixgbevf']['dir']}/dkms.conf" do
   source "dkms.conf.erb"
   owner "root"
