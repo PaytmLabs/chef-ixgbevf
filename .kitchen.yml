@@ -6,18 +6,18 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: centos6
+  - name: centos68
     driver_config:
-      box: boxcutter/centos67
-  - name: centos7
+      box: bmcgonigle/centos68
+  - name: centos72
     driver_config:
-      box: boxcutter/centos71
+      box: boxcutter/centos72
   - name: ubuntu1404
     driver_config:
       box: boxcutter/ubuntu1404
-  - name: debian81
+  - name: debian82
     driver_config:
-      box: boxcutter/debian81
+      box: boxcutter/debian82
 
 suites:
   - name: default
