@@ -23,18 +23,20 @@ execute 'extract_ixgbevf_source' do
   not_if { File.exists?( node['ixgbevf']['dir'] ) }
 end
 
+execute 'patch_ixgbevf_source' do
+  command "patch -p1 < /usr/src/ixgbevf-vlan-tx.patch"
+  cwd node['ixgbevf']['dir']
+  not_if { File.exists?( "#{node['ixgbevf']['dir']}/src/kcompat.h.orig" ) }
+  action :nothing
+end
+
 cookbook_file '/usr/src/ixgbevf-vlan-tx.patch' do
   source 'ixgbevf-vlan-tx.patch'
   owner 'root'
   group node['root_group']
   mode '0644'
   action :create
-end
-
-execute 'patch_ixgbevf_source' do
-  command "patch -p1 < /usr/src/ixgbevf-vlan-tx.patch"
-  cwd node['ixgbevf']['dir']
-  not_if { File.exists?( "#{node['ixgbevf']['dir']}/src/kcompat.h.orig" ) }
+  notifies :run, 'execute[patch_ixgbevf_source]', :immediately
 end
 
 template "#{node['ixgbevf']['dir']}/dkms.conf" do
