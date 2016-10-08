@@ -19,7 +19,7 @@ if node['platform_family'] == 'rhel'
 elsif node['platform_family'] == 'debian'
   include_recipe 'apt'
   # no prep needed for debian family
-  package 'linux-headers-amd64' if node['platform'] != "ubuntu"
+  package node['platform'] != "ubuntu" ? 'linux-headers-amd64' : "linux-headers-#{node['os_version']}"
   package 'perl'
   package 'dkms'
 else

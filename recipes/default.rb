@@ -20,13 +20,13 @@ end
 execute 'extract_ixgbevf_source' do
   command "tar xzvf #{Chef::Config[:file_cache_path]}/#{node['ixgbevf']['package']}"
   cwd '/usr/src'
-  not_if { File.exists?( node['ixgbevf']['dir'] ) }
+  not_if { File.exist?( node['ixgbevf']['dir'] ) }
 end
 
 execute 'patch_ixgbevf_source' do
   command "patch -p1 < /usr/src/ixgbevf-vlan-tx.patch"
   cwd node['ixgbevf']['dir']
-  not_if { File.exists?( "#{node['ixgbevf']['dir']}/src/kcompat.h.orig" ) }
+  not_if { File.exist?( "#{node['ixgbevf']['dir']}/src/kcompat.h.orig" ) }
   action :nothing
 end
 
@@ -56,16 +56,22 @@ end
 execute 'dkms_add_ixgbevf' do
   command "dkms add -m ixgbevf -v #{node['ixgbevf']['version']}"
   # FIXME: does this vary by platform?
-  not_if { File.exists?( '/var/lib/dkms/ixgbevf' ) }
+  not_if { File.exist?(node['ixgbevf']['dkms_dir']) }
 end
 
 execute 'dkms_build_ixgbevf' do
   command "dkms build -m ixgbevf -v #{node['ixgbevf']['version']}"
+  not_if { File.exist?("#{node['ixgbevf']['dkms_dir']}/#{node['ixgbevf']['version']}/build") }
 end
 
-execute 'dkms_add_ixgbevf' do
+execute 'dkms_install_ixgbevf' do
   command "dkms install -m ixgbevf -v #{node['ixgbevf']['version']}"
+  not_if {`modinfo -F version ixgbevf`.strip == node['ixgbevf']['version']}
 end
 
-
+execute 'restart module' do
+  command "modprobe -r ixgbevf && modprobe ixgbevf"
+  action :nothing
+  subscribes :run, 'execute[dkms_install_ixgbevf]', :immediately
+end
 
