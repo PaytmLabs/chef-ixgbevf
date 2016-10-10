@@ -1,5 +1,5 @@
 
-default['ixgbevf']['version'] = "3.1.2"
+default['ixgbevf']['version'] = "3.2.2"
 default['ixgbevf']['package'] = "ixgbevf-#{node['ixgbevf']['version']}.tar.gz"
 default['ixgbevf']['package_url'] = "http://sourceforge.net/projects/e1000/files/ixgbevf%20stable/#{node['ixgbevf']['version']}/#{node['ixgbevf']['package']}"
 default['ixgbevf']['dir']     = "/usr/src/ixgbevf-#{node['ixgbevf']['version']}"
