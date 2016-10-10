@@ -8,8 +8,6 @@
 include_recipe 'ixgbevf::dkms'
 include_recipe 'ixgbevf::ifnames_disable' if node['ixgbevf']['disable_ifnames']
 
-package 'patch'
-
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['ixgbevf']['package']}" do
   source node['ixgbevf']['package_url']
   checksum checksum
@@ -21,22 +19,6 @@ execute 'extract_ixgbevf_source' do
   command "tar xzvf #{Chef::Config[:file_cache_path]}/#{node['ixgbevf']['package']}"
   cwd '/usr/src'
   not_if { File.exist?( node['ixgbevf']['dir'] ) }
-end
-
-execute 'patch_ixgbevf_source' do
-  command "patch -p1 < /usr/src/ixgbevf-vlan-tx.patch"
-  cwd node['ixgbevf']['dir']
-  not_if { File.exist?( "#{node['ixgbevf']['dir']}/src/kcompat.h.orig" ) }
-  action :nothing
-end
-
-cookbook_file '/usr/src/ixgbevf-vlan-tx.patch' do
-  source 'ixgbevf-vlan-tx.patch'
-  owner 'root'
-  group node['root_group']
-  mode '0644'
-  action :create
-  notifies :run, 'execute[patch_ixgbevf_source]', :immediately
 end
 
 template "#{node['ixgbevf']['dir']}/dkms.conf" do
