@@ -15,9 +15,9 @@ platforms:
   - name: ubuntu1404
     driver_config:
       box: boxcutter/ubuntu1404
-  - name: debian82
+  - name: debian8
     driver_config:
-      box: boxcutter/debian82
+      box: boxcutter/debian8
 
 suites:
   - name: default
