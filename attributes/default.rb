@@ -1,5 +1,6 @@
 
 default['ixgbevf']['version'] = "3.2.2"
+default['ixgbevf']['checksum'] = '882534144078e8f7c856f99aae387cf181b1c75fb01fb2ba06299cd3f6f0d9c4'
 default['ixgbevf']['package'] = "ixgbevf-#{node['ixgbevf']['version']}.tar.gz"
 default['ixgbevf']['package_url'] = "http://sourceforge.net/projects/e1000/files/ixgbevf%20stable/#{node['ixgbevf']['version']}/#{node['ixgbevf']['package']}"
 default['ixgbevf']['dir']     = "/usr/src/ixgbevf-#{node['ixgbevf']['version']}"

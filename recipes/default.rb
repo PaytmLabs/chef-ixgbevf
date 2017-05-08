@@ -10,7 +10,7 @@ include_recipe 'ixgbevf::ifnames_disable' if node['ixgbevf']['disable_ifnames']
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{node['ixgbevf']['package']}" do
   source node['ixgbevf']['package_url']
-  checksum checksum
+  checksum node['ixgbevf']['checksum']
   mode 00644
   action :create
 end
