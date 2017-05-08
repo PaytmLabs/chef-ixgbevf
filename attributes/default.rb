@@ -7,6 +7,7 @@ default['ixgbevf']['module_flags'] = "InterruptThrottleRate=1,1,1,1,1,1,1,1"
 default['ixgbevf']['disable_ifnames'] = false
 default['ixgbevf']['compile_time'] = true
 default['ixgbevf']['dkms_dir'] = '/var/lib/dkms/ixgbevf'
+default['ixgbevf']['restart_module'] = false
 
 case node['platform']
   when 'ubuntu'
