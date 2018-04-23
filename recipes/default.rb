@@ -63,7 +63,7 @@ execute 'dkms_build_ixgbevf' do
   command "dkms build -m ixgbevf -v #{node['ixgbevf']['version']}"
 end
 
-execute 'dkms_add_ixgbevf' do
+execute 'dkms_install_ixgbevf' do
   command "dkms install -m ixgbevf -v #{node['ixgbevf']['version']}"
 end
 
