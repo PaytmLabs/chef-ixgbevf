@@ -1,0 +1,14 @@
+diff -rubB ixgbevf-3.2.2-orig/src/kcompat.h ixgbevf-3.2.2/src/kcompat.h
+--- ixgbevf-3.2.2-orig/src/kcompat.h	2016-05-27 13:18:24.000000000 -0700
++++ ixgbevf-3.2.2/src/kcompat.h	2017-05-08 15:56:05.000000000 -0700
+@@ -762,10 +762,6 @@
+  */
+ #define UBUNTU_VERSION_CODE (((LINUX_VERSION_CODE & ~0xFF) << 8) + (UTS_UBUNTU_RELEASE_ABI))
+ 
+-#if UTS_UBUNTU_RELEASE_ABI > 255
+-#error UTS_UBUNTU_RELEASE_ABI is too large...
+-#endif /* UTS_UBUNTU_RELEASE_ABI > 255 */
+-
+ #if ( LINUX_VERSION_CODE <= KERNEL_VERSION(3,0,0) )
+ /* Our version code scheme does not make sense for non 3.x or newer kernels,
+  * and we have no support in kcompat for this scenario. Thus, treat this as a
