@@ -9,7 +9,6 @@ default['ixgbevf']['disable_ifnames'] = false
 default['ixgbevf']['compile_time'] = true
 default['ixgbevf']['dkms_dir'] = '/var/lib/dkms/ixgbevf'
 default['ixgbevf']['restart_module'] = false
-override['apt']['compile_time_update'] = true
 
 case node['platform']
   when 'ubuntu'
